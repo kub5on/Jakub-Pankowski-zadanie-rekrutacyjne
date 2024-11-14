@@ -13,7 +13,7 @@ def api_key_request():
                     {"role": "user", "content": "Hello world"}
                 ]
             )
-            print("Klucz działa!")
+            print("Klucz działa! Połączono się z API OpenAI.")
             break
         except openai.OpenAIError:
             OPENAI_API_KEY = input(str("Twój klucz API nie działa bądź nie istnieje, podaj swój klucz API OpenAI: "))
@@ -23,18 +23,29 @@ def api_key_request():
             OPENAI_API_KEY = input(str("Twój klucz API nie działa bądź nie istnieje, podaj swój klucz API OpenAI: "))
             os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
+def ask_openai(system_content, user_prompt, article):
 
-def ask_openai(system_content, prompt):
     client = OpenAI()
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": system_content},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": user_prompt + article}
         ]
     )
-    print(completion.choices[0].message)
+    answer = completion.choices[0].message
+    # print(completion.choices[0].message)
+    return answer
 
 
-api_key_request()
-ask_openai("", "Przywitaj się.")
+# api_key_request()
+
+# Wczytanie treści artykułu
+with open('artykul.txt', 'r', encoding='UTF-8') as file:
+    article = file.read()
+
+
+
+
+#
+# ask_openai(system_content, user_prompt, article)
