@@ -25,14 +25,14 @@ def api_key_request():
             os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 
-def ask_openai(system_content, user_prompt, article):
+def ask_openai(f_system_content, f_user_prompt, f_article):
 
     client = OpenAI()
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": system_content},
-            {"role": "user", "content": user_prompt + article}
+            {"role": "system", "content": f_system_content},
+            {"role": "user", "content": f_user_prompt + f_article}
         ]
     )
     # answer = completion.choices[0].message['content']
@@ -49,13 +49,10 @@ def accept_arguments(name, value):
 
 def processing_result(result):
 
-    start_index = result.find("<!DOCTYPE html>")
-    if start_index != -1:
-        result = result[start_index:]
+    result = result.replace("```", "")
 
-    stop_index = result.find("</html>")
-    if stop_index != -1:
-        result = result[:stop_index + len("</html>")]
+    if result.lower().startswith("html"):
+        result = result[4:].strip()  # Usuwamy pierwsze 4 znaki i ewentualne białe znaki
 
     # Zapisanie wygenerowanego HTML do pliku
     with open("artykul.html", "w", encoding="UTF-8") as output_file:
@@ -68,13 +65,14 @@ api_key_request()
 with open('artykul.txt', 'r', encoding='UTF-8') as file:
     article = file.read()
 
-system_content = "\nJesteś programistą HTML, twoją pracą jest odpowiednie obrabianie tekstu do wstawienia na stronę internetową."
+system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
+                 "Twoje zadanie to stworzenie kodu HTML dla artykułu, który spełnia wymagania przesłane przez użytkownika."
 
-user_prompt = "\nStwórz kod HTML z artykułem z odpowiednimi tagami HTML do strukturyzacji treści, który zawiera miejsca na obrazy. \n" \
-              "Wstaw tagi <img src='image_placeholder.jpg' alt='...' /> tam, gdzie artykuł może wymagać obrazu, \n" \
-              "wypełnij atrybut 'alt' odpowiednim opisem dla grafiki, który można wykorzystać do jej wygenerowania.\n" \
-              "Dodaj podpisy pod grafikami z użyciem tagu <figcaption>."
-                # "Nie generuj kodu CSS ani JavaScript. Kod HTML ma być tylko między tagami <body> i </body>."
+user_prompt = "\n1. Wykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki `<h1>`, `<h2>`, akapity `<p>`, listy `<ul>`, `<li>`, oraz tagi formatowania jak `<strong>`, `<em>`. \n" \
+              "2. Wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, \n" \
+              "   który powinien zawierać dokładny opis obrazka. \n"  \
+              "3. Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
+              "4. Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript."
 
 
 print("Dane które zostaną przesłane do OpenAi:\n"
