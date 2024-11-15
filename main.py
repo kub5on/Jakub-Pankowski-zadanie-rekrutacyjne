@@ -72,9 +72,11 @@ if __name__ == "__main__":
     # Zdefiniowanie domyślnych zmiennych
     execution_1 = True;
     system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
-                         "Twoje zadanie to stworzenie kodu HTML na podstawie artykułu, który spełnia wymagania przesłane przez użytkownika."
+                         "Twoje zadanie to wygenerowanie kodu HTML na podstawie przesłanego artykułu, \n" \
+                         "który spełnia wymagania przesłane przez użytkownika."
 
-    user_prompt = "\nWykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki, akapity, listy oraz tagi formatowania. \n" \
+    user_prompt = "\nAby wygenerować kod HTML wykorzystaj odpowiednie tagi HTML do strukturyzacji treści, \n" \
+                    "takie jak nagłówki, akapity, listy oraz tagi formatowania. \n" \
                     "Na podstawie tekstu wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` \n" \
                     "z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, który powinien zawierać dokładny opis obrazka. \n"  \
                     "Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
@@ -103,8 +105,8 @@ if __name__ == "__main__":
         while True:
 
             # akceptacja danych gotowych do przekazania do OpenAI
-            user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
-            system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
+            system_content = accept_arguments("Instrukcja dla systemu (system_content): ", system_content)
+            user_prompt = accept_arguments("\nWiadomość użytkownika (user_prompt): ", user_prompt)
 
 
             print("\nGenerowanie odpowiedzi...")
