@@ -2,7 +2,7 @@
 
 ## Opis
 
-Aplikacja łączy się z API OpenAI, co umożliwia generowanie kodu HTML przez AI na podstawie artykułu tekstowego.
+Aplikacja łączy się z API OpenAI, co umożliwia generowanie kodu HTML przez AI na podstawie artykułu tekstowego oraz stworzonych zapytań (promptów).
 Użytkownik ma za zadanie wprowadzić dane wejściowe (prompty), które są przesyłane do OpenAI, a w odpowiedzi aplikacja generuje 
 kod HTML z odpowiednimi tagami, strukturą i propozycjami miejsc na grafiki. 
 Wygenerowany kod HTML może być użyty do wstawienia artykułu do strony internetowej.
