@@ -43,6 +43,8 @@ do wpisywania promptów wpisując dowolny znak na klawiaturze (za wyjątkiem ent
 
 Zadanie dla chętnych działa analogicznie jak program główny. Znajduje się ono w pliku additional_task.py.
 Różni się ono promptami oraz tym, że na wyjściu otrzymujemy pliki szablon.html oraz podglad.html.
+Program składa się z dwóch zapytań wysyłanych do OpenAI - pierwsze tworzy plik szablon.html, a drugie plik
+podglad.html z plikow artykul.html i szablon.html.
 
 ### Uwagi
 
