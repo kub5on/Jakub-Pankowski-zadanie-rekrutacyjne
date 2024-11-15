@@ -12,6 +12,10 @@ user_prompt = "\nWygeneruj szablon HTML gotowy do wklejenia artykułu. Sekcja '<
               "Opracuj dodatkowo style CSS na podstawie nazw sekcji, kontenerów, nazw klas i identyfikatorów zawartych w kodzie artykułu.\n" \
               "Wszystkie nazwy styli CSS mają się zgadzać, z nazwami w kodzie artykułu."
 
+final_system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
+                       "Otrzymujesz dwa pliki tekstowe z kodem html, scal je w jeden plik."
+
+
 while True:
 
     if execution_1:
@@ -38,6 +42,22 @@ while True:
         accept = input()
         if accept == "":
             break
+
+    while True:
+
+        # akceptacja danych gotowych do przekazania do OpenAI
+        final_system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", final_system_content)
+
+
+        print("\nGenerowanie odpowiedzi...")
+        answer = ask_openai(system_content, answer, article)
+        processing_result(answer, "podglad")
+        print("\nAI wygenerowało szablon, sprawdź go w pliku szablon.html.\n"
+                  "Wciśnij enter jeśli go akceptujesz, w przeciwnym wypadku będziesz mógł zaktualiować prompty i wygenerować nową odpowiedź.")
+        accept = input()
+        if accept == "":
+            break
+
 
     if accept == "":
         break
