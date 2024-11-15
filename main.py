@@ -66,12 +66,14 @@ if __name__ == "__main__":
     system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
                          "Twoje zadanie to stworzenie kodu HTML na podstawie artykułu, który spełnia wymagania przesłane przez użytkownika."
 
-    user_prompt = "\n1. Wykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki `<h1>`, `<h2>`, akapity `<p>`, listy `<ul>`, `<li>`, oraz tagi formatowania jak `<strong>`, `<em>`. \n" \
-                      "2. Wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, \n" \
-                      "   który powinien zawierać dokładny opis obrazka. \n"  \
-                      "3. Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
-                      "4. Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. \n" \
-                      "Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript."
+    user_prompt = "\nWykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki, akapity, listy oraz tagi formatowania. \n" \
+                    "Na podstawie tekstu wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` \n" \
+                    "z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, który powinien zawierać dokładny opis obrazka. \n"  \
+                    "Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
+                    "Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. \n" \
+                    "Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript, ale\n" \
+                    "kod ma być gotowy do dodania ich w kolejnym etapie pracy (podziel go na klasy z nazwami)." \
+
 
     while True:
 
