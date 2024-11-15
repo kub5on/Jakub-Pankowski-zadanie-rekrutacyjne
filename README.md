@@ -18,7 +18,7 @@ Wygenerowany kod HTML może być użyty do wstawienia artykułu do strony intern
 
 ### 2. Uruchomienie aplikacji
 
-Należy pobrać folder Jakub-Pankowski-zadanie-rekrutacyjne i otworzyć go za pomocą
+Należy pobrać folder ZIP Jakub-Pankowski-zadanie-rekrutacyjne i otworzyć go za pomocą
 dowolnego środowiska umożliwiającego programowanie w języku Python (np. PyCharm). Następnie należy
 uruchomić program main.py, w którym znajduję się główny kod stworzonej aplikacji. Program z zadania
 dla chętnych znajduje się w pliku additional_task.py i działa analogicznie do programu main.py.
