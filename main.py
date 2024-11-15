@@ -59,32 +59,36 @@ def processing_result(result):
         output_file.write(result)
 
 
-api_key_request()
-
-# Wczytanie treści artykułu
-with open('artykul.txt', 'r', encoding='UTF-8') as file:
-    article = file.read()
-
+# Define variables
+execution = True;
 system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
-                 "Twoje zadanie to stworzenie kodu HTML dla artykułu, który spełnia wymagania przesłane przez użytkownika."
+                     "Twoje zadanie to stworzenie kodu HTML dla artykułu, który spełnia wymagania przesłane przez użytkownika."
 
 user_prompt = "\n1. Wykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki `<h1>`, `<h2>`, akapity `<p>`, listy `<ul>`, `<li>`, oraz tagi formatowania jak `<strong>`, `<em>`. \n" \
-              "2. Wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, \n" \
-              "   który powinien zawierać dokładny opis obrazka. \n"  \
-              "3. Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
-              "4. Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript."
+                  "2. Wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, \n" \
+                  "   który powinien zawierać dokładny opis obrazka. \n"  \
+                  "3. Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
+                  "4. Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript."
 
+while True:
 
-print("Dane które zostaną przesłane do OpenAi:\n"
-      "1. Treść artykułu (article),\n"
-      "2. Wiadomość użytkownika (user_prompt),\n"
-      "3. Instrukcja dla systemu (system_content)\n"
-      "\nZaakceptuj klikając enter bądź ustaw nowe wartości dla: \n ")
+    if execution == True:
+        api_key_request()
+        execution = False
 
-# akceptacja danych gotowych do przekazania do OpenAI
-user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
-system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
+    # Wczytanie treści artykułu
+    with open('artykul.txt', 'r', encoding='UTF-8') as file:
+        article = file.read()
 
-answer = ask_openai(system_content, user_prompt, article)
+    print("Dane które zostaną przesłane do OpenAi:\n"
+          "1. Treść artykułu (article),\n"
+          "2. Wiadomość użytkownika (user_prompt),\n"
+          "3. Instrukcja dla systemu (system_content)\n"
+          "\nZaakceptuj klikając enter bądź ustaw nowe wartości dla: \n ")
 
-processing_result(answer)
+    # akceptacja danych gotowych do przekazania do OpenAI
+    user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
+    system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
+
+    answer = ask_openai(system_content, user_prompt, article)
+    processing_result(answer)
