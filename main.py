@@ -14,7 +14,7 @@ def api_key_request():
                     {"role": "user", "content": "Hello world"}
                 ]
             )
-            print("Klucz działa! Połączono się z API OpenAI.")
+            print(input("Klucz działa! Połączono się z API OpenAI."))
             break
         except openai.OpenAIError:
             OPENAI_API_KEY = input(str("Twój klucz API nie działa bądź nie istnieje, podaj swój klucz API OpenAI: "))
@@ -59,8 +59,8 @@ def processing_result(result):
         output_file.write(result)
 
 
-# Define variables
-execution = True;
+# Define default variables
+execution_1 = True;
 system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
                      "Twoje zadanie to stworzenie kodu HTML dla artykułu, który spełnia wymagania przesłane przez użytkownika."
 
@@ -72,23 +72,36 @@ user_prompt = "\n1. Wykorzystaj odpowiednie tagi HTML do strukturyzacji treści,
 
 while True:
 
-    if execution == True:
+    if execution_1:
         api_key_request()
-        execution = False
+        execution_1 = False
 
     # Wczytanie treści artykułu
     with open('artykul.txt', 'r', encoding='UTF-8') as file:
         article = file.read()
+        print(input("Poprawnie wczytano artykuł, przejdź dalej."))
 
-    print("Dane które zostaną przesłane do OpenAi:\n"
+    print(input("Dane które zostaną przesłane do OpenAi:\n"
           "1. Treść artykułu (article),\n"
           "2. Wiadomość użytkownika (user_prompt),\n"
           "3. Instrukcja dla systemu (system_content)\n"
-          "\nZaakceptuj klikając enter bądź ustaw nowe wartości dla: \n ")
+          "\nW kolejnym etapie zaakceptuj je bądź ustaw nowe."))
 
-    # akceptacja danych gotowych do przekazania do OpenAI
-    user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
-    system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
+    while True:
 
-    answer = ask_openai(system_content, user_prompt, article)
-    processing_result(answer)
+        # akceptacja danych gotowych do przekazania do OpenAI
+        user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
+        system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
+
+
+        print("\nGenerowanie odpowiedzi...")
+        answer = ask_openai(system_content, user_prompt, article)
+        processing_result(answer)
+        print("\nAI wygenerowało kod artykułu, sprawdź go w pliku artykul.html.\n"
+                  "Wciśnij enter jeśli go akceptujesz, w przeciwnym wypadku będziesz mógł zaktualiować prompty i wygenerować nową odpowiedź.")
+        accept = input()
+        if accept == "":
+            break
+
+    if accept == "":
+        break
