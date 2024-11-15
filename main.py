@@ -47,7 +47,7 @@ def accept_arguments(name, value):
     return new_value if new_value else value
 
 
-def processing_result(result):
+def processing_result(result, name):
 
     result = result.replace("```", "")
 
@@ -55,53 +55,56 @@ def processing_result(result):
         result = result[4:].strip()  # Usuwamy pierwsze 4 znaki i ewentualne białe znaki
 
     # Zapisanie wygenerowanego HTML do pliku
-    with open("artykul.html", "w", encoding="UTF-8") as output_file:
+    with open(f"{name}.html", "w", encoding="UTF-8") as output_file:
         output_file.write(result)
 
 
-# Define default variables
-execution_1 = True;
-system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
-                     "Twoje zadanie to stworzenie kodu HTML dla artykułu, który spełnia wymagania przesłane przez użytkownika."
+if __name__ == "__main__":
 
-user_prompt = "\n1. Wykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki `<h1>`, `<h2>`, akapity `<p>`, listy `<ul>`, `<li>`, oraz tagi formatowania jak `<strong>`, `<em>`. \n" \
-                  "2. Wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, \n" \
-                  "   który powinien zawierać dokładny opis obrazka. \n"  \
-                  "3. Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
-                  "4. Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript."
+    # Define default variables
+    execution_1 = True;
+    system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
+                         "Twoje zadanie to stworzenie kodu HTML na podstawie artykułu, który spełnia wymagania przesłane przez użytkownika."
 
-while True:
-
-    if execution_1:
-        api_key_request()
-        execution_1 = False
-
-    # Wczytanie treści artykułu
-    with open('artykul.txt', 'r', encoding='UTF-8') as file:
-        article = file.read()
-        print(input("Poprawnie wczytano artykuł, przejdź dalej."))
-
-    print(input("Dane które zostaną przesłane do OpenAi:\n"
-          "1. Treść artykułu (article),\n"
-          "2. Wiadomość użytkownika (user_prompt),\n"
-          "3. Instrukcja dla systemu (system_content)\n"
-          "\nW kolejnym etapie zaakceptuj je bądź ustaw nowe."))
+    user_prompt = "\n1. Wykorzystaj odpowiednie tagi HTML do strukturyzacji treści, takie jak nagłówki `<h1>`, `<h2>`, akapity `<p>`, listy `<ul>`, `<li>`, oraz tagi formatowania jak `<strong>`, `<em>`. \n" \
+                      "2. Wybierz miejsca, w których twoim zdaniem powinny znajdować się ilustracje i wstaw w nie tagi `<img>` z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, \n" \
+                      "   który powinien zawierać dokładny opis obrazka. \n"  \
+                      "3. Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
+                      "4. Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. \n" \
+                      "Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript."
 
     while True:
 
-        # akceptacja danych gotowych do przekazania do OpenAI
-        user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
-        system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
+        if execution_1:
+            api_key_request()
+            execution_1 = False
+
+        # Wczytanie treści artykułu
+        with open('artykul.txt', 'r', encoding='UTF-8') as file:
+            article = file.read()
+            print(input("Poprawnie wczytano artykuł, przejdź dalej."))
+
+        print(input("Dane które zostaną przesłane do OpenAi:\n"
+              "1. Treść artykułu (article),\n"
+              "2. Wiadomość użytkownika (user_prompt),\n"
+              "3. Instrukcja dla systemu (system_content)\n"
+              "\nW kolejnym etapie zaakceptuj je bądź ustaw nowe."))
+
+        while True:
+
+            # akceptacja danych gotowych do przekazania do OpenAI
+            user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
+            system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
 
 
-        print("\nGenerowanie odpowiedzi...")
-        answer = ask_openai(system_content, user_prompt, article)
-        processing_result(answer)
-        print("\nAI wygenerowało kod artykułu, sprawdź go w pliku artykul.html.\n"
-                  "Wciśnij enter jeśli go akceptujesz, w przeciwnym wypadku będziesz mógł zaktualiować prompty i wygenerować nową odpowiedź.")
-        accept = input()
+            print("\nGenerowanie odpowiedzi...")
+            answer = ask_openai(system_content, user_prompt, article)
+            processing_result(answer, "artykul")
+            print("\nAI wygenerowało kod artykułu, sprawdź go w pliku artykul.html.\n"
+                      "Wciśnij enter jeśli go akceptujesz, w przeciwnym wypadku będziesz mógł zaktualiować prompty i wygenerować nową odpowiedź.")
+            accept = input()
+            if accept == "":
+                break
+
         if accept == "":
             break
-
-    if accept == "":
-        break
