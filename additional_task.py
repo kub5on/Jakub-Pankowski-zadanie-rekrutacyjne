@@ -13,7 +13,7 @@ user_prompt = "\nWygeneruj szablon HTML gotowy do wklejenia artykułu. Sekcja '<
               "Wszystkie nazwy styli CSS mają się zgadzać, z nazwami w kodzie artykułu."
 
 final_system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
-                       "Otrzymujesz dwa pliki tekstowe z kodem html, scal je w jeden plik."
+                       "Otrzymujesz dwa pliki tekstowe z kodem html, scal je w jeden plik gotowy do wyświetlenia w przeglądarce.."
 
 
 while True:
@@ -27,21 +27,25 @@ while True:
         article = file.read()
         print(input("Poprawnie wczytano artykuł, przejdź dalej."))
 
+    print(input("Teraz zostanie wygenerowany zostanie plik szablon.html:"))
+
     while True:
 
         # akceptacja danych gotowych do przekazania do OpenAI
-        user_prompt = accept_arguments("Wiadomość użytkownika (user_prompt): ", user_prompt)
-        system_content = accept_arguments("\nInstrukcja dla systemu (system_content): ", system_content)
-
+        system_content = accept_arguments("Instrukcja dla systemu (system_content): ", system_content)
+        user_prompt = accept_arguments("\nWiadomość użytkownika (user_prompt): ", user_prompt)
 
         print("\nGenerowanie odpowiedzi...")
         answer = ask_openai(system_content, user_prompt, article)
         processing_result(answer, "szablon")
         print("\nAI wygenerowało szablon, sprawdź go w pliku szablon.html.\n"
-                  "Wciśnij enter jeśli go akceptujesz, w przeciwnym wypadku będziesz mógł zaktualiować prompty i wygenerować nową odpowiedź.")
+                  "Wciśnij enter jeśli go akceptujesz i chcesz przejść do generowania podglądu artykułu, \n"
+                  "wpisz dowolny inny znak jeśli chcesz zaktualiować prompty i wygenerować nową odpowiedź.")
         accept = input()
         if accept == "":
             break
+
+    print(input("Teraz zostanie wygenerowany plik podglad.html:"))
 
     while True:
 
@@ -52,8 +56,8 @@ while True:
         print("\nGenerowanie odpowiedzi...")
         answer = ask_openai(system_content, answer, article)
         processing_result(answer, "podglad")
-        print("\nAI wygenerowało szablon, sprawdź go w pliku szablon.html.\n"
-                  "Wciśnij enter jeśli go akceptujesz, w przeciwnym wypadku będziesz mógł zaktualiować prompty i wygenerować nową odpowiedź.")
+        print("\nAI wygenerowało podgląd, sprawdź go w pliku podglad.html.\n"
+                  "Wciśnij enter jeśli go akceptujesz, wpisz dowolny znak jeśli chcesz zaktualizować zapytanie i wygenerować nową odpowiedź.")
         accept = input()
         if accept == "":
             break
