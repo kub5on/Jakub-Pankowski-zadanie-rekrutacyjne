@@ -5,12 +5,12 @@ from main import api_key_request, ask_openai, accept_arguments, processing_resul
 
 execution_1 = True;
 system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
-                     "Twoje zadanie to stworzenie pliku z kodem HTML na podstawie artykułu, który spełnia wymagania przesłane przez użytkownika."
+                 "Twoje zadanie to stworzenie pliku z kodem HTML na podstawie kodu artykułu, \n" \
+                 "który spełnia wymagania przesłane przez użytkownika."
 
 user_prompt = "\nWygeneruj szablon HTML gotowy do wklejenia artykułu. Sekcja '<body>' musi pozostać całkowicie pusta! Nic tam nie dodawaj!\n" \
-                "Opracuj style CSS na podstawie kodu artykułu. Wszystkie nazwy klas mają się zgadzać,\n" \
-                "z nazwami w kodzie artykułu."
-
+              "Opracuj dodatkowo style CSS na podstawie nazw sekcji, kontenerów, nazw klas i identyfikatorów zawartych w kodzie artykułu.\n" \
+              "Wszystkie nazwy styli CSS mają się zgadzać, z nazwami w kodzie artykułu."
 
 while True:
 

@@ -54,6 +54,14 @@ def processing_result(result, name):
     if result.lower().startswith("html"):
         result = result[4:].strip()  # Usuwamy pierwsze 4 znaki i ewentualne białe znaki
 
+    start_index = result.find("<!DOCTYPE html>")
+    if start_index != -1:
+        result = result[start_index:]
+
+    stop_index = result.find("</html>")
+    if stop_index != -1:
+        result = result[:stop_index + len("</html>")]
+
     # Zapisanie wygenerowanego HTML do pliku
     with open(f"{name}.html", "w", encoding="UTF-8") as output_file:
         output_file.write(result)
@@ -61,7 +69,7 @@ def processing_result(result, name):
 
 if __name__ == "__main__":
 
-    # Define default variables
+    # Zdefiniowanie domyślnych zmiennych
     execution_1 = True;
     system_content = "\nJesteś ekspertem w tworzeniu stron internetowych w HTML.\n" \
                          "Twoje zadanie to stworzenie kodu HTML na podstawie artykułu, który spełnia wymagania przesłane przez użytkownika."
@@ -71,8 +79,8 @@ if __name__ == "__main__":
                     "z atrybutem `src=image_placeholder.jpg` oraz atrybutem `alt`, który powinien zawierać dokładny opis obrazka. \n"  \
                     "Do każdego obrazu dodaj podpis używając tagu `<figcaption>`. \n" \
                     "Zwróć tylko kod HTML do umieszczenia pomiędzy tagami `<body>` i `</body>`. \n" \
-                    "Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript, ale\n" \
-                    "kod ma być gotowy do dodania ich w kolejnym etapie pracy (podziel go na klasy z nazwami)." \
+                    "Nie dołączaj tagów `<html>`, `<head>`, ani `<body>`, ani żadnych stylów CSS i skryptów JavaScript.\n" \
+                    "Podziel kod na kontenery, sekcje, dodaj klasy i identyfikatory. Kod ma być gotowy do dodania stylów CSS." \
 
 
     while True:
