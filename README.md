@@ -51,5 +51,5 @@ podglad.html z plikow artykul.html i szablon.html.
 - Aby przechodzić do kolejnych etapów w aplikacji należy wciskać enter.
 - W plikach artykul.html, szablon.html oraz podglad.html znajdują się ostatnie wygenerowane przez aplikacje pliki.
 Uruchomienie aplikacji i przejście przez wszytstkie jej etapy spowoduje nadpisanie odpowiednich plików.
-
+- Aby otworzyć przykładowy artykuł należy uruchomić plik podglad.html za pomocą przeglądarki.
 
