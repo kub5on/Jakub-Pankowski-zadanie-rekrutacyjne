@@ -14,14 +14,40 @@ Wygenerowany kod HTML może być użyty do wstawienia artykułu do strony intern
 - Python od wersji 3.8
 - Klucz API OpenAI dodany do zmiennych środowiskowych 
   bądź gotowy do wklejenia do aplikacji
+- biblioteka openai
 
-### 2. Instalacja zależności
+### 2. Uruchomienie aplikacji
 
+Należy pobrać folder Jakub-Pankowski-zadanie-rekrutacyjne i otworzyć go za pomocą
+dowolnego środowiska umożliwiającego programowanie w języku Python (np. PyCharm). Następnie należy
+uruchomić program main.py, w którym znajduję się główny kod stworzonej aplikacji. Program z zadania
+dla chętnych znajduje się w pliku additional_task.py i działa analogicznie do programu main.py.
 
-### 4. Pliki wyjściowe
+### 4. Działanie aplikacji krok po kroku
 
-Aplikacja generuje plik `artykul.html` zawierający kod HTML.
+Po uruchomieniu pliku main.py aplikacja w pierwszej kolejności sprawdza czy klucz API OpenAI znajduję
+się w zmiennych środowiskowych systemu, jeżeli tak to program wykonuję się dalej (nazwa zmiennej
+środowiskowej musi mieć nazwę "OPENAI_API_KEY"!!). W przeciwnym wypadku program poprosi użytkownika
+o podanie swojego klucza, a następnie sprawdzi jego poprawność. Nie można przejść dalej bez podania poprawnego klucza.
+
+Następnie zostaje wczytany artykuł. Po tej operacji można przystąpić do zaakceptowania bądź
+zaktualizowania promptów wysyłanych później do API OpenAI. Zostały ustawione domyśle prompty zgodnie z instrukcją
+zadania, jednak istnieje możliwość ich aktualizacji. Po sprawdzeniu prompta należy wpisać jego nową 
+wersję bądź zatwierdzić domyślny.
+
+Po zatwierdzeniu promptów, zapytania wraz z artykułem zostają wysłane do API OpenAI. AI generuje odpowiedź która 
+zapisuje się w pliku artykul.html. Jeżeli użytkownik nie jest usatysfakcjnowany odpowiedzią może przejść ponowie 
+do wpisywania promptów wpisując dowolny znak na klawiaturze (za wyjątkiem enter!)
+
+### 5. Działanie aplikacji (zadanie dla chętnych)
+
+Zadanie dla chętnych działa analogicznie jak program główny. Znajduje się ono w pliku additional_task.py.
+Różni się ono promptami oraz tym, że na wyjściu otrzymujemy pliki szablon.html oraz podglad.html.
 
 ### Uwagi
 
-Aplikacja wymaga połączenia z internetem, aby korzystać z API OpenAI.
+- Aby przechodzić do kolejnych etapów w aplikacji należy wciskać enter.
+- W plikach artykul.html, szablon.html oraz podglad.html znajdują się ostatnie wygenerowane przez aplikacje pliki.
+Uruchomienie aplikacji i przejście przez wszytstkie jej etapy spowoduje nadpisanie odpowiednich plików.
+
+
